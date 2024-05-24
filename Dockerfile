@@ -1,11 +1,15 @@
 FROM node:20
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY . .
-
+COPY package* .
+COPY ./prisma .
+    
 RUN npm install
 RUN npx prisma generate
+
+
+COPY . .
 RUN npm run build
 # Any others cmd's to setup the project locally
 
