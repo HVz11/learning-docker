@@ -84,9 +84,9 @@ docker run hello-world
 ## Basic Docker Commands
 Here are some essential Docker commands that will help you get started:
 
--Run a container: `docker run -p 8080:80 nginx`
--List all running `containers: docker ps`
--List all containers: `docker ps -a`
+*Run a container: `docker run -p 8080:80 nginx`
+*List all running containers: `docker ps`
+*List all containers: `docker ps -a`
 -List all images: `docker images`
 -Build an image: `docker build -t my-image .` 
 -Pull an image from Docker Hub: `docker pull ubuntu`
