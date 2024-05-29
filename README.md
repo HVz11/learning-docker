@@ -58,4 +58,91 @@ Containerization is a technology that allows you to package and distribute softw
    docker run -p <host_port>:<container_port> <image_name>
    ```
 
-   
+## Docker Installation
+To install Docker, follow the official Docker installation guide for your operating system: Docker Installation
+
+### Installation Steps for Ubuntu on WSL2
+If you have Ubuntu installed on WSL2 already, follow these steps:
+
+``` sh
+sudo apt-get update
+sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo service docker start
+```
+
+### Verify Docker installation:
+
+``` sh
+sudo service docker status
+docker run hello-world
+```
+
+## Basic Docker Commands
+Here are some essential Docker commands that will help you get started:
+
+-Run a container: `docker run -p 8080:80 nginx`
+-List all running `containers: docker ps`
+-List all containers: `docker ps -a`
+-List all images: `docker images`
+-Build an image: `docker build -t my-image .` 
+-Pull an image from Docker Hub: `docker pull ubuntu`
+-Push an image to Docker Hub: `docker push my-image`
+-Stop a container: `docker stop my-container`
+-Start a container: `docker start my-container`
+-Remove a container: `docker rm my-container`
+-Remove an image: `docker rmi my-image`
+-Execute a command in a running container: `docker exec -it my-container bash`
+-View container logs: `docker logs my-container`
+-Manage Docker networks: `docker network`
+-Manage Docker volumes: `docker volume`
+
+## Docker Compose 
+### Introduction to Docker Compose
+Docker Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration.
+
+### Setting Up Docker Compose
+To install Docker Compose, follow the official installation guide: Docker Compose Installation
+
+### Running Multiple Containers
+Here is an example of a docker-compose.yaml file that sets up a multi-container application:
+
+``` yaml
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  backend:
+    image: backend
+    container_name: backend_app
+    depends_on:
+      - mongodb
+    ports:
+      - "3000:3000"
+    environment:
+      MONGO_URL: "mongodb://mongodb:27017"
+
+volumes:
+  mongodb_data:
+```
+
+To start the application stack, run:
+``` sh
+docker-compose up
+```
+
+To stop the application stack and remove containers, networks, and volumes, run:
+``` sh
+docker-compose down --volumes
+```
+
