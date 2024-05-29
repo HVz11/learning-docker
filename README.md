@@ -84,21 +84,21 @@ docker run hello-world
 ## Basic Docker Commands
 Here are some essential Docker commands that will help you get started:
 
-*Run a container: `docker run -p 8080:80 nginx`
-*List all running containers: `docker ps`
-*List all containers: `docker ps -a`
--List all images: `docker images`
--Build an image: `docker build -t my-image .` 
--Pull an image from Docker Hub: `docker pull ubuntu`
--Push an image to Docker Hub: `docker push my-image`
--Stop a container: `docker stop my-container`
--Start a container: `docker start my-container`
--Remove a container: `docker rm my-container`
--Remove an image: `docker rmi my-image`
--Execute a command in a running container: `docker exec -it my-container bash`
--View container logs: `docker logs my-container`
--Manage Docker networks: `docker network`
--Manage Docker volumes: `docker volume`
+- Run a container: `docker run -p 8080:80 nginx`
+- List all running containers: `docker ps`
+- List all containers: `docker ps -a`
+- List all images: `docker images`
+- Build an image: `docker build -t my-image .` 
+- Pull an image from Docker Hub: `docker pull ubuntu`
+- Push an image to Docker Hub: `docker push my-image`
+- Stop a container: `docker stop my-container`
+- Start a container: `docker start my-container`
+- Remove a container: `docker rm my-container`
+- Remove an image: `docker rmi my-image`
+- Execute a command in a running container: `docker exec -it my-container bash`
+- View container logs: `docker logs my-container`
+- Manage Docker networks: `docker network`
+- Manage Docker volumes: `docker volume`
 
 ## Docker Compose 
 ### Introduction to Docker Compose
@@ -145,4 +145,48 @@ To stop the application stack and remove containers, networks, and volumes, run:
 ``` sh
 docker-compose down --volumes
 ```
+
+## Docker Networks
+### Creating and Using Networks
+Docker networks allow you to isolate and secure containers. To create and use a network, follow these steps:
+
+### 1. Create a network:
+``` sh 
+docker network create my_custom_network
+```
+
+### 2. Run a container and connect it to the network:
+``` sh
+docker run -d --name my_container --network my_custom_network nginx
+```
+
+## Docker Volumes
+### Creating and Using Volumes
+Volumes are used to persist data generated and used by Docker containers. To create and use volumes, follow these steps:
+
+### 1. Create a volume:
+``` sh
+docker volume create my_volume
+```
+
+### 2. Run a container with a volume: 
+``` sh
+docker run -d -v my_volume:/data --name my_container nginx
+```
+
+### Remove a volume:
+``` sh
+docker volume rm my_volume
+```
+## Bind Mounts
+Bind mounts allow you to share files between the host machine and the container. They are useful for development environments where you want real-time synchronization of files.
+
+### 1. Run a container with a bind mount:
+``` sh 
+docker run -d -v /path/on/host:/path/in/container --name my_container nginx
+```
+
+This setup is particularly useful for development scenarios where hot reloading is required. Any changes made to the files on the host machine will be reflected in the container, allowing for immediate feedback and faster development cycles.
+
+
 
